@@ -8,7 +8,7 @@ import { Menu, X, MapPin, Mail, Phone, CheckCircle, Star, MessageCircle, Chevron
 import { motion, AnimatePresence } from 'motion/react';
 
 const services = [
-  { id: 1, title: 'Bridal Makeup', description: 'Flawless, long-lasting look for your special day.', image: 'images/service1.jpg' },
+  { id: 1, title: 'Bridal Makeup', description: 'Flawless, long-lasting look for your special day.', image: '/images/service1.jpg' },
   { id: 2, title: 'Engagement Makeup', description: 'Soft, glamorous makeup tailored for engagement ceremonies.', image: 'images/service2.jpg' },
   { id: 3, title: 'Party Makeup', description: 'Stand out in any event with our signature party makeup.', image: 'images/service3.jpg' },
   { id: 4, title: 'Hair Styling', description: 'Elegant updos, curls, and contemporary hair styles.', image: 'images/service4.jpg' },
@@ -144,17 +144,16 @@ export default function App() {
       </a>
 
       {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden bg-primary/20">
+     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+  
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ 
-            backgroundImage: "url('images/hero.jpg')",
-            backgroundColor: "var(--color-primary)" 
+            backgroundImage: "url(/images/hero.jpg)"
           }}
         >
-          {/* Fallback pattern if image is missing */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/95 to-background/70 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-background/60"></div>
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
@@ -163,19 +162,21 @@ export default function App() {
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="font-serif text-5xl md:text-7xl font-bold text-accent mb-6 leading-tight drop-shadow-sm"
+            className="font-serif text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
           >
             Enhance Your Natural Beauty
           </motion.h1>
+
           <motion.p 
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg md:text-2xl text-accent/90 mb-10 font-light"
+            className="text-lg md:text-2xl text-white/90 mb-10"
           >
             Professional Bridal & Party Makeover by Farhana Trina
           </motion.p>
+
           <motion.div 
             initial={{ y: 30, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
@@ -183,14 +184,16 @@ export default function App() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <button onClick={() => scrollToSection('contact')} className="px-8 py-4 bg-accent text-white rounded-full font-medium tracking-wide hover:bg-accent/90 transition-all shadow-lg hover:shadow-xl w-64 sm:w-auto">
+            <button className="px-8 py-4 bg-accent text-white rounded-full hover:bg-accent/90 transition shadow-lg">
               Book Now
             </button>
-            <button onClick={() => scrollToSection('services')} className="px-8 py-4 bg-transparent border border-accent text-accent rounded-full font-medium tracking-wide hover:bg-accent/5 transition-all w-64 sm:w-auto">
+
+            <button className="px-8 py-4 border border-white text-white rounded-full hover:bg-white/10 transition">
               View Services
             </button>
           </motion.div>
         </div>
+
       </section>
 
       {/* About Section */}
@@ -252,26 +255,33 @@ export default function App() {
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                key={service.id} 
-                className="bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
-              >
-                <div className="aspect-[4/3] bg-primary relative overflow-hidden flex items-center justify-center">
-                  <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onError={(e) => e.currentTarget.style.display = 'none'} />
-                   <span className="text-xs opacity-50 z-0">[{service.image}]</span>
-                </div>
-                <div className="p-8">
-                  <h3 className="font-serif text-2xl text-accent mb-3">{service.title}</h3>
-                  <p className="text-accent/75">{service.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {services.map((service, index) => (
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              key={service.id} 
+              className="bg-background rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+              <div className="aspect-[4/3] relative overflow-hidden">
+                <img 
+                  src={service.image} 
+                  alt={service.title} 
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/fallback.jpg';
+                  }}
+                />
+              </div>
+
+              <div className="p-8">
+                <h3 className="font-serif text-2xl text-accent mb-3">{service.title}</h3>
+                <p className="text-accent/75">{service.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
         </div>
       </section>
 
@@ -313,22 +323,29 @@ export default function App() {
           </div>
           
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-            {gallery.map((img, idx) => (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
-                key={idx} 
-                className="relative break-inside-avoid overflow-hidden rounded-xl bg-primary cursor-pointer group flex items-center justify-center aspect-[3/4]"
-                onClick={() => setLightboxImg(img)}
-              >
-                <img src={img} alt={`Gallery ${idx + 1}`} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onError={(e) => e.currentTarget.style.display = 'none'} />
-                <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/30 transition-colors duration-300"></div>
-                <span className="text-xs opacity-50 z-0">[{img}]</span>
-              </motion.div>
-            ))}
-          </div>
+          {gallery.map((img, idx) => (
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
+              key={idx} 
+              className="relative break-inside-avoid overflow-hidden rounded-xl bg-primary cursor-pointer group flex items-center justify-center aspect-[3/4]"
+              onClick={() => setLightboxImg(img)}
+            >
+              <img 
+                src={img} 
+                alt={`Gallery ${idx + 1}`} 
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                onError={(e) => {
+                  e.currentTarget.src = '/images/fallback.jpg';
+                }}
+              />
+
+              <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/30 transition-colors duration-300"></div>
+            </motion.div>
+          ))}
+        </div>
         </div>
       </section>
 

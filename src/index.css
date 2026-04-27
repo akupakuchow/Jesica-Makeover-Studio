@@ -1,14 +1,11 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @theme {
-  --color-primary: #f9e5e0;
-  --color-secondary: #d4a373;
-  --color-accent: #3e2515;
-  --color-background: #fdfaf7;
+  --color-primary: #260707; --color-secondary: #260707; --color-accent: #AD2831; --color-background: #FAF1EC;
 
-  --font-serif: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
+  --font-serif: "Bodoni Moda", serif;
+  --font-sans: "Courier Prime", monospace;
 }
 
 body {
