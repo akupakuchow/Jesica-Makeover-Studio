@@ -77,8 +77,17 @@ export default function App() {
       <nav className="fixed top-0 w-full z-40 bg-background/90 backdrop-blur-md shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <h1 className="font-serif text-2xl font-bold text-accent tracking-wide">
+            <div
+              className="flex-shrink-0 cursor-pointer flex items-center gap-3"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <img
+                src="/logo.svg"
+                alt="Jesica Makeover Studio"
+                className="h-10 w-10 object-contain"
+              />
+
+              <h1 className="font-serif text-2xl font-bold text-accent leading-none">
                 Jesica Makeover Studio
               </h1>
             </div>
